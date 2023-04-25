@@ -9,12 +9,8 @@ export default defineConfig({
     lib: {
       formats: ["es", "umd"],
       name: "index",
-
       entry: resolve(__dirname, "src/index.ts"),
       fileName(format, entryName) {
-        console.log("format", format);
-        console.log("entryName", entryName);
-
         return `index.${format}.js`;
       },
     },
