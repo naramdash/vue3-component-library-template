@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { userEvent } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 import Button from "./Button.vue";
 
@@ -27,6 +29,20 @@ export const Primary: Story = {
   args: {
     primary: true,
     label: "Button",
+  },
+  play: async ({ args, canvasElement, step }) => {
+    await step("interacting phase", async () => {
+      await userEvent.click(canvasElement.querySelector("button")!);
+      await userEvent.click(canvasElement.querySelector("button")!);
+      await userEvent.click(canvasElement.querySelector("button")!);
+      await userEvent.click(canvasElement.querySelector("button")!);
+    });
+    await userEvent.click(canvasElement.querySelector("button")!);
+    await userEvent.click(canvasElement.querySelector("button")!);
+
+    await expect(canvasElement.querySelector("button")?.textContent).toBe(
+      "Button"
+    );
   },
 };
 
